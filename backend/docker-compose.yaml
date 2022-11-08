@@ -1,0 +1,14 @@
+version: '2'
+
+services: 
+ mysql1: 
+  image: hypriot/rpi-mysql:latest
+  environment: 
+   MYSQL_ROOT_PASSWORD: mju
+   expose: 3306
+ nodejs:   
+  build: 
+   context: .
+   dockerfile: ./Dockerfile
+  links: [mysql1:mysql1]
+  ports: [80:80]
