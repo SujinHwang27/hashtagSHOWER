@@ -1,10 +1,10 @@
-"use strict";
-
-const path = require("path");
 const Sequelize = require("sequelize");
+const Temperature = require("./temperature");
+const WaterUsage = require("./waterusage");
+const User = require("./user");
+
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.json")[env];
-
 // db를 객체로 생성
 const db = {};
 
@@ -17,6 +17,16 @@ const sequelize = new Sequelize(
 );
 
 db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+db.Temperature = Temperature;
+db.WaterUsage = WaterUsage;
+db.User = User;
+
+Temperature.init(sequelize);
+WaterUsage.init(sequelize);
+User.init(sequelize);
+
+Temperature.associate(db);
+User.associate(db);
+WaterUsage.associate(db);
 
 module.exports = db;

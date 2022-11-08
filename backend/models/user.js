@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-module.export = class User extends Sequelize.Model {
+class User extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
@@ -9,6 +9,11 @@ module.export = class User extends Sequelize.Model {
           antoIncrement: true,
           primaryKey: true,
           allowNull: false,
+        },
+        goal: {
+          type: Sequelize.INTEGER.UNSIGNED,
+          allowNull: true,
+          primaryKey: true,
         },
       },
       {
@@ -23,5 +28,9 @@ module.export = class User extends Sequelize.Model {
       }
     );
   }
-  static associate(db) {}
-};
+  static associate(db) {
+    db.User.hasMany(db.WaterUsage), db.User.hasMany(db.Temperature);
+  }
+}
+
+module.exports = User;

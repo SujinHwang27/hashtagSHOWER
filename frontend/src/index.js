@@ -2,12 +2,19 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import ShowerMonitoring from "./ShowerMonitoring";
+import Stats from "./Stats";
 import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ShowerMonitoring />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/stats" element={<Stats />} />
+        <Route path="/" element={<ShowerMonitoring />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

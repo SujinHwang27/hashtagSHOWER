@@ -1,7 +1,8 @@
-import logo from "./logo.svg";
 import "./css/ShowerMonitoring.css";
 import React, { useState } from "react";
+import { Link, Router } from "react-router-dom";
 import axios from "axios";
+import Polling from "./Polling";
 
 function ShowerMonitoring() {
   let [temperature, setTemperature] = useState("receive from server");
@@ -20,7 +21,7 @@ function ShowerMonitoring() {
   };
 
   const fetchGoalValue = async () => {
-    const response = await axios.post("http://localhost:5001/text", {
+    const response = await axios.post("http://localhost:5001/goalset", {
       goal: goal,
     });
   };
@@ -47,16 +48,17 @@ function ShowerMonitoring() {
               set
             </button>
           </div>
-          <div className="currUsage">
-            You've consumed: {usage} L. That is {(usage * 100) / goal}% of
-            today's goal
-          </div>
+          <Polling goal={goal} />
         </div>
 
         <div className="tempMonitor">
           <div className="currTemp">
             Current shower temperature: {temperature}
           </div>
+        </div>
+
+        <div className="linkStats">
+          <Link to="/stats">See my stats</Link>
         </div>
       </div>
     </div>
