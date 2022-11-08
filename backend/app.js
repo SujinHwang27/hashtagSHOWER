@@ -22,7 +22,7 @@ sequelize
   .then(() => {
     console.log("Success to connect on database");
     //실시간 센싱 데이터 저장
-    //gpioFetch(WaterUsage, Temperature, userID);
+    gpioFetch(WaterUsage, Temperature, userID);
   })
   .catch((err) => {
     console.error(err);
