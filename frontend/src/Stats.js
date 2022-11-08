@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./css/Stats.css";
 
 const Stats = () => {
   const [waterUsageData, setWaterUsageData] = useState([]);
@@ -47,6 +48,7 @@ const Stats = () => {
 
   return (
     <div className="stats">
+      <h4 className="statsHeader">[Stats of your shower]</h4>
       <div className="statsWaterUsage">
         Water usage average per month: {avgWaterUsage}
       </div>

@@ -1,5 +1,6 @@
 var userID = 0;
 
+const gpioFetch = require("./gpio/gpio");
 const express = require("express");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
@@ -7,9 +8,7 @@ const path = require("path");
 const cors = require("cors");
 dotenv.config();
 
-const { sequelize, User, WaterUsage } = require("./models");
-const { findOne } = require("./models/temperature");
-const { nextTick } = require("process");
+const { sequelize, User, WaterUsage, Temperature } = require("./models");
 
 const app = express();
 // const router = express.Router(); -> 필요하면 사용하기
@@ -22,28 +21,30 @@ sequelize
   .sync({ force: false })
   .then(() => {
     console.log("Success to connect on database");
+    //실시간 센싱 데이터 저장
+    //gpioFetch(WaterUsage, Temperature, userID);
   })
   .catch((err) => {
     console.error(err);
   });
 
 // 1초마다 요청이 오면 1초마다 관측한 monitoring 데이터 전송
-// 라즈베리에서 데이터 받아와야 함
-// 가장 최근 데이터 받아오기
 app.get("/monitor", async (req, res, next) => {
   console.log(":5001/monitor get 요청 받음");
   try {
-    const waterUsage = WaterUsage.findAll({
+    var waterUsage = WaterUsage.findAll({
       attributes: ["user", "waterusage"],
       where: {
         user: 1,
       },
+      raw: true,
     });
   } catch (err) {
     console.error(err);
     next(err);
   }
-  res.send({ user: 1, waterusage: 120 });
+  res.send(waterUsage);
+  //res.send({ user: 1, waterusage: 120 });
 });
 
 // 사용자 물 사용 통계량 데이터 제공, 서버 측에서 데이터 보내주면 클라이언트는 해당 데이터 rendering
@@ -51,31 +52,34 @@ app.get("/monitor", async (req, res, next) => {
 app.get("/statsWaterUsage", async (req, res, next) => {
   console.log(":5001/stats 물 사용량 get 요청 받음");
   try {
-    const waterUsage = await WaterUsage.findAll({
+    var waterUsage = await WaterUsage.findAll({
       attributes: ["user", "waterusage"],
       where: {
         user: 1,
       },
+      raw: true,
     });
   } catch (err) {
     console.error(err);
     next(err);
   }
-  res.send([
-    { user: 1, waterusage: 120 },
-    { user: 1, waterusage: 80 },
-    { user: 1, waterusage: 100 },
-  ]);
+  res.send(waterUsage);
+  // res.send([
+  //   { user: 1, waterusage: 120 },
+  //   { user: 1, waterusage: 80 },
+  //   { user: 1, waterusage: 100 },
+  // ]);
 });
 
 app.get("/statsTemperature", async (req, res, next) => {
   console.log(":5001/stats 온도 get 요청 받음");
   try {
-    const waterUsage = await WaterUsage.findAll({
-      attributes: ["user", "waterusage"],
+    const temperature = await Temperature.findAll({
+      attributes: ["user", "temperature"],
       where: {
         user: 1,
       },
+      raw: true,
     });
   } catch (err) {
     console.error(err);
