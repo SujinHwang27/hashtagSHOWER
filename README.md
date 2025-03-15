@@ -5,7 +5,9 @@
 #SHOWER(hashtag-SHOWER) is a Smart Water Monitoring System that transforms water conservation into an engaging daily habit. 
 This project was developed for the Girls in ICT 2022 competition at Ericsson-LG, Seoul, South Korea.
 
-Check out our [main algorithm](src/algorithm.py)
+### Deliverables
+[Initial research, problem statement, and conceptual solution design](Girls_In_ICT_2022_SHOWER_PRELIMINARY.pdf)
+[Technical implementation details and system architecture](Girls_In_ICT_2022_SHOWER_SEMI_FINAL.pdf)
 
 ### The Problem
 
