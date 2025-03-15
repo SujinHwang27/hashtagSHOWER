@@ -7,6 +7,7 @@ This project was developed for the Girls in ICT 2022 competition at Ericsson-LG,
 
 ### Deliverables
 [Initial research, problem statement, and conceptual solution design](Girls_In_ICT_2022_SHOWER_PRELIMINARY.pdf)
+
 [Technical implementation details and system architecture](Girls_In_ICT_2022_SHOWER_SEMI_FINAL.pdf)
 
 ### The Problem
